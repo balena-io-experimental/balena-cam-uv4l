@@ -1,0 +1,41 @@
+{
+    "name": "resin-camera",
+    "version": "0.0.1",
+    "description": "A smart, Raspberry Pi based streaming camera",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/resin-io-playground/blabla"
+    },
+    "author": "Carlo Maria Curinga <carlo@resin.io>",
+    "license": "Apache-2.0",
+    "bugs": {
+        "url": "https://github.com/resin-io-playground/blabla/issues"
+    },
+    "homepage": "https://github.com/resin-io-playground/blabla#readme",
+    "jshintConfig": {
+        "esnext": true,
+        "strict": true
+    },
+    "dependencies": {
+        "8x8matrix": "0.0.1",
+        "express": "^4.14.0",
+        "chalk": "^1.1.3",
+        "debug": "^2.2.0",
+        "jsonfile": "^2.3.1",
+        "serve-static": "^1.11.1",
+        "socket.io": "^1.5.0",
+        "rpio": "^0.9.12",
+        "bluebird": "^3.4.1",
+        "random-bool": "^1.0.2",
+        "random-int-array": "^1.0.0",
+        "request": "^2.72.0",
+        "body-parser": "^1.15.2",
+        "bower": "^1.7.9",
+        "coffee-script": "~1.9.3",
+        "dbus": "^0.2.19"
+    }
+}
