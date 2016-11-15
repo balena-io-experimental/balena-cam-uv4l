@@ -1,4 +1,4 @@
-# resin-cam
+# [WIP] resin-cam
 A smart, Raspberry Pi based streaming camera
 
 ## Getting started
