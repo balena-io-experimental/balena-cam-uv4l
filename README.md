@@ -1,6 +1,10 @@
 # [WIP] resin-cam
 A smart, Raspberry Pi based streaming camera
+
 ![resincam in athens](https://github.com/resin-io-playground/resin-cam/raw/master/designs/resincam.JPG)
+
+- **[Bill of Materials](https://github.com/resin-io-playground/resin-cam/blob/master/BoM.md)**
+
 ## Getting started
 
 - Sign up on [resin.io](https://dashboard.resin.io/signup)
