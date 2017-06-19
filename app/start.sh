@@ -1,31 +1,17 @@
 #!/bin/bash
-export DBUS_SYSTEM_BUS_ADDRESS=unix:path=/host/run/dbus/system_bus_socket
 
-# Enable i2c
-modprobe i2c-dev >/dev/null 2>&1 || true
+# Start turn server as daemon if enabled
+# [ ! -z ${disable_turn+x} ] || turnserver --no-stun --no-cli --no-multicast-peers -o
 
-# Enable camera
-modprobe bcm2835-v4l2 >/dev/null 2>&1 || true
+source ./set_option.sh
 
-# Ensure stream folders are there
-mkdir /data/stream  >/dev/null 2>&1 || true
+# Reconfigure uv4l.conf
+set_option height $height /usr/src/app/config/uv4l.conf
+set_option width $width /usr/src/app/config/uv4l.conf
+set_option framerate $framerate /usr/src/app/config/uv4l.conf
 
-# Start resin-wifi-connect
-node /usr/src/app/wifi_connect.js
-if [ ! -f /data/network.config ]; then
-	node src/app.js
-else
-	cp /data/network.config /host/var/lib/connman/network.config
-  sleep 20;
-  printf "Checking if we are connected to the internet via a google ping...\n\n"
-  wget --spider http://google.com 2>&1
-  if [ $? -eq 0 ]; then
-    printf "\nconnected to internet, skipping wifi-connect\n\n"
-  else
-		printf "\nnot connected, starting wifi-connect\n\n"
-    node src/app.js
-  fi
-fi
+# Reconfigure the uv4l service
+sed -i 's^/etc/uv4l/uv4l-raspicam.conf^/usr/src/app/config/uv4l.conf^g' /etc/init.d/uv4l_raspicam
 
-# Start app
-node /usr/src/app/index.js
+# Start uv4l
+systemctl start uv4l_raspicam

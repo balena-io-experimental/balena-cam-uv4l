@@ -1,0 +1,18 @@
+[
+    {
+        "font": "script_complex",
+        "font_comment": [ "valid fonts are simplex, plain, duplex, complex,",
+                          "triplex, complex_small, script_simplex,",
+                          "script_complex, italic" ],
+        "scale": 1.0,
+        "red": 252,
+        "green": 205,
+        "blue": 0,
+        "line_type": 8,
+        "thickness": 1,
+        "bottom_left": false,
+        "text_line": "Resin Camera",
+        "x": 5,
+        "y": 60
+    }
+]

@@ -1,32 +1,15 @@
-FROM resin/%%RESIN_MACHINE_NAME%%-node:6
-
-RUN apt-get update && apt-get install -y \
-  git \
-  wget \
-  curl \
-  build-essential \
-  python-dev \
-  python-pip \
-  libraspberrypi0 \
-  libraspberrypi-bin \
-  dnsmasq \
-  hostapd \
-  iproute2 \
-  iw \
-  libdbus-1-dev \
-  libexpat-dev \
-  rfkill && rm -rf /var/lib/apt/lists/*
+FROM resin/%%RESIN_MACHINE_NAME%%-debian:jessie
 
 # Install UV4L
-RUN curl http://www.linux-projects.org/listing/uv4l_repo/lrkey.asc | sudo apt-key add - \
-  && sed -i '1s#^#deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ \
-    jessie main\n#' /etc/apt/sources.list
+RUN apt-get update && apt-get install curl
+RUN curl http://www.linux-projects.org/listing/uv4l_repo/lrkey.asc | sudo apt-key add -
+RUN sed -i '1s;^;deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main\n;' /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y \
+  vlc \
   uv4l \
   uv4l-raspicam \
   uv4l-raspicam-extras \
-  uv4l-webrtc \
   uv4l-server \
   uv4l-xscreen \
   uv4l-mjpegstream \
@@ -34,44 +17,32 @@ RUN apt-get update && apt-get install -y \
   uv4l-uvc \
   uv4l-raspidisp \
   uv4l-xmpp-bridge \
-  && rm -rf /var/lib/apt/lists/*
+  uv4l-demos
 
-RUN git clone git://git.drogon.net/wiringPi && cd wiringPi && ./build && pip install wiringpi2
+# Install the proper version of uv4l-webrtc
+RUN apt-get install -y uv4l-webrtc$([ $(uname -m) = armv6l ] && echo -armv6)
 
-# Save source folder
-RUN printf "%s\n" "${PWD##}" > SOURCEFOLDER
+# Install local turn server if enabled
+# RUN [ ! -z ${disable_turn+x} ] || apt-get install -y coturn
 
-RUN mkdir -p /usr/src/app/
+# Clean apt-get
+RUN apt-get clean && rm -rf /var/lib/apt-get/lists/*
 
 # Move to app dir
 WORKDIR /usr/src/app
 
-# Move package.json to filesystem
-COPY "$SOURCEFOLDER/app/package.json" ./
+# Copy over our project files
+COPY "$SOURCEFOLDER/app" /usr/src/app
+COPY "$SOURCEFOLDER/config/" /usr/src/app/config
 
-COPY "$SOURCEFOLDER/Dockerbin/uv4l-raspicam.conf" /etc/uv4l/uv4l-raspicam.conf
+# Enable raspberry pi's camera interface
+RUN /bin/bash /usr/src/app/enable-rpicam.sh
 
-# Install NodeJS dependencies via NPM
-RUN ["/bin/bash", "-c", "JOBS=MAX npm i --unsafe-perm --production && npm cache clean"]
-
-# Move bower.json to filesystem
-COPY "$SOURCEFOLDER/app/bower.json $SOURCEFOLDER/app/.bowerrc" /usr/src/app/
-
-# Install
-RUN ./node_modules/.bin/bower --allow-root install \
-	&& ./node_modules/.bin/bower --allow-root cache clean
-
-# Move app to filesystem
-COPY "$SOURCEFOLDER/app" ./
-
-# Compile coffee
-RUN ./node_modules/.bin/coffee -c ./src
-
-# Disable uv4l service - we will manually start it later
-RUN systemctl disable uv4l_raspicam
-
-## uncomment if you want systemd
+# Uncomment if you want systemd
 ENV INITSYSTEM on
 
+# Disable uv4l_raspicam service which we'll manually start later
+RUN systemctl disable uv4l_raspicam
+
 # Start app
-CMD ["/bin/bash", "/usr/src/app/start.sh"]
+CMD /bin/bash /usr/src/app/start.sh
