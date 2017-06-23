@@ -1,5 +1,5 @@
 # resin-cam-uv4l
-A smart, Raspberry Pi streaming camera based on [UV4L]().
+A smart, Raspberry Pi streaming camera based on [UV4L](https://www.linux-projects.org/uv4l/).
 
 ### **[Bill of Materials](docs/BoM.md)**
 
