@@ -6,18 +6,17 @@ RUN curl http://www.linux-projects.org/listing/uv4l_repo/lrkey.asc | sudo apt-ke
 RUN sed -i '1s;^;deb http://www.linux-projects.org/listing/uv4l_repo/raspbian/ jessie main\n;' /etc/apt/sources.list
 
 RUN apt-get update && apt-get install -y \
-  vlc \
   uv4l \
+  uv4l-demos \
+  uv4l-dummy \
+  uv4l-mjpegstream \
   uv4l-raspicam \
   uv4l-raspicam-extras \
-  uv4l-server \
-  uv4l-xscreen \
-  uv4l-mjpegstream \
-  uv4l-dummy \
-  uv4l-uvc \
   uv4l-raspidisp \
+  uv4l-server \
+  uv4l-uvc \
   uv4l-xmpp-bridge \
-  uv4l-demos
+  uv4l-xscreen
 
 # Install the proper version of uv4l-webrtc
 RUN apt-get install -y uv4l-webrtc$([ $(uname -m) = armv6l ] && echo -armv6)
@@ -35,8 +34,8 @@ WORKDIR /usr/src/app
 COPY "$SOURCEFOLDER/app" /usr/src/app
 COPY "$SOURCEFOLDER/config/" /usr/src/app/config
 
-# Enable raspberry pi's camera interface
-RUN /bin/bash /usr/src/app/enable-rpicam.sh
+# Enable Raspberry Pi's camera interface
+RUN printf "bcm2835-v4l2\n" >> /etc/modules
 
 # Uncomment if you want systemd
 ENV INITSYSTEM on

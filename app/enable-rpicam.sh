@@ -1,1 +1,0 @@
-#!/bin/bashsource ./set_option# Enable raspberry pi's camera interfaceset_option start_x 1 /boot/config.txtset_option gpu_mem 196 /boot/config.txtset_option disable_camera_led 1 /boot/config.txtexit
