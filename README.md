@@ -1,19 +1,33 @@
-# [WIP] resin-cam
-A smart, Raspberry Pi based streaming camera
+# resin-cam-uv4l
+A smart, Raspberry Pi streaming camera based on [UV4L]().
 
-![resincam in athens](https://github.com/resin-io-playground/resin-cam/raw/master/designs/resincam.JPG)
-
-- **[Bill of Materials](https://github.com/resin-io-playground/resin-cam/blob/master/BoM.md)**
+### **[Bill of Materials](docs/BoM.md)**
 
 ## Getting started
 
 - Sign up on [resin.io](https://dashboard.resin.io/signup)
-- Select your Raspberry Pi version and create a new application
+- Select your Raspberry Pi's version and create a new application
+- Follow the instructions on downloading and flashing [resinOS](https://resinos.io) to your Pi
 - Clone this repository to your local workspace
-- Add the _resin remote_ to your local workspace using the useful shortcut in the dashboard UI ![remoteadd](https://raw.githubusercontent.com/resin-io-playground/boombeastic/master/docs/gitresinremote.png)
-- Push code yo your device with a simple `git push resin master`
-- See the magic happening, your device is getting updated Over-The-Air!
-- When your device finishes updating on the Resin Dashboard you should be able to point your browser to `<resincamIP>:80/stream` (get the device IP from the Resin Dashboard)
+- Set these variables in the `Fleet Configuration` application side tab
+  - `RESIN_HOST_CONFIG_gpu_mem` = `196`
+  - `RESIN_HOST_CONFIG_start_x` = `1`
+- Add the _resin remote_ to your local workspace by running the useful command in the Resin dashboard
+  <details>
+    <summary>
+      Hint
+    </summary>
+    ![Adding the resin remote.](docs/remoteadd.png)
+  </details>
+- Push code to your device with a simple `git push resin master`
+  - See the magic happening, your device is getting updated Over-The-Air!
+- If you want your device to be accessible on WAN, enable its public URL
+  - Select your device from the `Devices` side tab
+  - Click the `Actions` side tab
+  - Click the `ENABLE PUBLIC DEVICE URL` button
+  - Note down your device's public URL!
+- When your device finishes updating visit your device's IP or public URL to watch your stream!
+  - You can find your device's IP on the dashboard
 
 ## Configure via [environment variables](https://docs.resin.io/management/env-vars/)
 Variable Name | Default | Description
@@ -21,7 +35,6 @@ Variable Name | Default | Description
 width | `640` | video width
 height | `480` | video height
 framerate | `30` | video framerate
-disable_turn | unset | set this if you want to disable the local turn server that will run on your device through Resin's public url
 
 ## License
 
