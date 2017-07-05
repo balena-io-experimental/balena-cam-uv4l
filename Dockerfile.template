@@ -25,15 +25,16 @@ RUN apt-get update -q &&\
 # Move to app dir
 WORKDIR /usr/src/app
 
+# Uncomment if you want systemd
+ENV CONF_DIR=/data/config/ \
+  INITSYSTEM=on
+
 # Copy over our project files
-COPY "$SOURCEFOLDER/app" /usr/src/app
-COPY "$SOURCEFOLDER/config/" /usr/src/app/config
+COPY ./app/ /usr/src/app/
+COPY ./config/ /usr/src/app/config/
 
 # Disable uv4l_raspicam service which we'll manually start later
 RUN systemctl disable uv4l_raspicam
-
-# Uncomment if you want systemd
-ENV INITSYSTEM on
 
 # Start app
 CMD /bin/bash /usr/src/app/start.sh

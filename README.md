@@ -29,9 +29,9 @@ It works on all the Raspberry Pi's with a camera connector—even the Pi Zero!
 - When your device finishes updating visit your device's IP or public URL to watch your stream!
   - You can find your device's IP on the Resin dashboard.
 - Further explore [UV4L's configuration options](https://www.linux-projects.org/uv4l/tutorials/) and edit [the config file](config/uv4l.conf)
-  - Make sure to update your devices after every change you make! You can either:
-    - Commit your changes and do another `git push resin master`
-    - Learn more about the powerful [**resin-cli**](https://github.com/resin-io/resin-cli) and how you can iterate and deploy to your devices rapidly!
+- Make sure to update your devices after every change you make! You can either:
+  - Commit your changes and do another `git push resin master`
+  - Learn more about the powerful [**resin-cli**](https://github.com/resin-io/resin-cli) and how you can iterate and deploy to your devices rapidly!
 
 ## Configure via [environment variables](https://docs.resin.io/management/env-vars/)
 Variable Name | Default | Description
