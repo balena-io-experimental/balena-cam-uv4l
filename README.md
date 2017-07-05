@@ -1,5 +1,7 @@
 # resin-cam-uv4l
-A smart, Raspberry Pi streaming camera based on [UV4L](https://www.linux-projects.org/uv4l/).
+A smart Raspberry Pi streaming camera based on [UV4L](https://www.linux-projects.org/uv4l/).
+
+It works on all the Raspberry Pi's with a camera connector—even the Pi Zero!
 
 ### **[Bill of Materials](docs/BoM.md)**
 
@@ -14,10 +16,8 @@ A smart, Raspberry Pi streaming camera based on [UV4L](https://www.linux-project
   - `RESIN_HOST_CONFIG_start_x` = `1`
 - Add the _resin remote_ to your local workspace by running the useful command in the Resin dashboard
   <details>
-    <summary>
-      Hint
-    </summary>
-    ![Adding the resin remote.](docs/remoteadd.png)
+    <summary>Hint</summary>
+    <img src="docs/remoteadd.png" alt="Adding the Resin remote."></img>
   </details>
 - Push code to your device with a simple `git push resin master`
   - See the magic happening, your device is getting updated Over-The-Air!
@@ -27,7 +27,11 @@ A smart, Raspberry Pi streaming camera based on [UV4L](https://www.linux-project
   - Click the `ENABLE PUBLIC DEVICE URL` button
   - Note down your device's public URL!
 - When your device finishes updating visit your device's IP or public URL to watch your stream!
-  - You can find your device's IP on the dashboard
+  - You can find your device's IP on the Resin dashboard.
+- Further explore [UV4L's configuration options](https://www.linux-projects.org/uv4l/tutorials/) and edit [the config file](config/uv4l.conf)
+  - Make sure to update your devices after every change you make! You can either:
+    - Commit your changes and do another `git push resin master`
+    - Learn more about the powerful [**resin-cli**](https://github.com/resin-io/resin-cli) and how you can iterate and deploy to your devices rapidly!
 
 ## Configure via [environment variables](https://docs.resin.io/management/env-vars/)
 Variable Name | Default | Description
@@ -35,6 +39,8 @@ Variable Name | Default | Description
 width | `640` | video width
 height | `480` | video height
 framerate | `30` | video framerate
+
+If you want to add more environment variables to control [UV4L's config file](config/uv4l.conf) add a line of this format `set_option <UV4L_OPTION_NAME> $<ENV_VAR_NAME> <PATH_TO_CONFIG>` to the [start script](app/start.sh). It will be easy once you see the existing lines.
 
 ## License
 
