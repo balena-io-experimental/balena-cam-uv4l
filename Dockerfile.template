@@ -25,7 +25,7 @@ RUN apt-get update -q &&\
 # Move to app dir
 WORKDIR /usr/src/app
 
-# Uncomment if you want systemd
+# Configure env vars
 ENV CONF_DIR=/data/config/ \
   INITSYSTEM=on
 
@@ -37,4 +37,4 @@ COPY ./config/ /usr/src/app/config/
 RUN systemctl disable uv4l_raspicam
 
 # Start app
-CMD /bin/bash /usr/src/app/start.sh
+CMD ["/bin/bash", "/usr/src/app/start.sh"]
