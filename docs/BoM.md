@@ -5,4 +5,4 @@
 | [2.5A microUSB Power Supply](https://www.raspberrypi.org/products/universal-power-supply/) | Raspberry Pi Foundation | 1 |
 | [Camera Module V2](https://www.raspberrypi.org/products/camera-module-v2/) <br /> **or** <br /> [Camera Module for _Raspberry Pi **Zero**_](https://shop.pimoroni.com/products/raspberry-pi-zero-camera-module) | Raspberry Pi Foundation <br /> **or** <br /> Pimoroni | 1 |
 | 8GB _or more_ Class 10 microSD Card |  | 1
-| [3D Printed Case](designs/) |  | 1 |
+| [3D Printed Case](resin-io-playground/raspberry-pi-cases) |  | 1 |
