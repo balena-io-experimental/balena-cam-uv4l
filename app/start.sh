@@ -14,6 +14,7 @@ set_option text-filename ${CONF_DIR}text.json ${CONF_FILE}
 set_option height ${height} ${CONF_FILE}
 set_option width ${width} ${CONF_FILE}
 set_option framerate ${framerate} ${CONF_FILE}
+set_option rotation ${rotation} ${CONF_FILE}
 
 # Reconfigure the UV4L service
 sed -i "s^/etc/uv4l/uv4l-raspicam.conf^${CONF_FILE}^g" /etc/init.d/uv4l_raspicam
