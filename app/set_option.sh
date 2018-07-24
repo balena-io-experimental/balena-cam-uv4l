@@ -1,8 +1,11 @@
 #!/bin/bash
-# Look for pre-existing option. If not found, create it.
 set_option() {
-  if [[ -z $1 || -z $2 || -z $3 ]]; then return; fi
+    if [[ -z $1 || -z $2 || -z $3 ]]; then return; fi
 
-  # Using the ^ delimiter so that we don't conflict with file paths.
-  sed -i '/'"$1\s*=\s*\w*"'/{s^^'"\n$1=$2"'^g;h};${x;/./{x;q0};x;q1}' $3 || echo $1=$2 >> $3
+    # Try to replace variable ($1) value with the new one ($2) in the file ($3).
+    # Append variable to the file if it doesn't exist. Create file with the
+    # variable set if the file doesn't exist.
+    [[ -f "$3" ]] \
+        && grep -q "^$1\s*=.*$" "$3" && sed -i "s+^$1\s*=.*$+$1 = $2+g" "$3" \
+        || echo "$1 = $2" >> "$3"
 }
