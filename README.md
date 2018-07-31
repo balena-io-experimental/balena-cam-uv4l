@@ -43,6 +43,9 @@ rotation | `0` | video rotation (0/90/180/270 degrees)
 
 If you want to add more environment variables to control [UV4L's config file](config/uv4l.conf) add a line of this format `set_option <UV4L_OPTION_NAME> $<ENV_VAR_NAME> <PATH_TO_CONFIG>` to the [start script](app/start.sh). It will be easy once you see the existing lines.
 
+You can also configure UV4l on the fly using `http://<raspberrypi>/panel`.
+Where `<raspberrypi>` is the IP address of your Pi or the Public URL, both of them can be found in your resin.io account's Dashboard.
+
 ## License
 
 Copyright 2017 Resinio Ltd.
